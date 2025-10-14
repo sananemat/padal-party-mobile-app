@@ -157,7 +157,7 @@ export default function LocationModal({
       onRequestClose={onClose}
     >
       <TouchableWithoutFeedback onPress={clearEverything}>
-        <BlurView intensity={70} tint="dark" style={styles.overlay}>
+        <BlurView experimentalBlurMethod="dimezisBlurView" intensity={70} tint="dark" style={styles.overlay}>
         {/* <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}

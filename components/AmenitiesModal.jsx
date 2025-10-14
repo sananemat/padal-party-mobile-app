@@ -70,7 +70,7 @@ export default function AmenitiesModal({
     <Modal transparent animationType="fade" visible={visible} onRequestClose={onClose}>
       {/* tap outside to close */}
       <TouchableWithoutFeedback onPress={onClose}>
-        <BlurView intensity={70} tint="dark" style={styles.overlay}>
+        <BlurView experimentalBlurMethod="dimezisBlurView" intensity={70} tint="dark" style={styles.overlay}>
           {/* prevent taps inside from closing modal */}
           
             <CAProfileCard style={styles.card}>

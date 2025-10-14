@@ -21,15 +21,21 @@ export default function ClubAdminLayout() {
           headerShadowVisible: false,
           headerTitleStyle: {fontSize:24, fontWeight: "bold"},
           headerBackButtonMenuEnabled: false,
-          headerBackTitle: "Back"
+          // headerBackTitle: "",
+          headerBackButtonDisplayMode: "minimal"
           
           
       }} 
       >
         <Stack.Screen name="cadashboard" options={{title: 'Club Admin Portal' }}/>
-        <Stack.Screen name="caprofile" options={{title: 'Club Profile'}}/>
+        <Stack.Screen name="caprofile" options={{title: 'Club Profile', }}/>
         <Stack.Screen name="cacourts" options={{title: 'Court Management'}}/>
         <Stack.Screen name="cabookings" options={{title: 'Booking Management'}}/>
+        <Stack.Screen name="cacourtavailability" options={{title: 'Court Availability'}}/>
+        <Stack.Screen name="caanalytics" options={{title: 'Analytics'}}/>
+        <Stack.Screen name="catournaments" options={{title: 'Tournaments'}}/>
+        <Stack.Screen name="cacreatetourney" options={{title: 'Create Tournament'}}/>
+        <Stack.Screen name="cacomms" options={{title: 'Communication'}}/>
         {/* <Stack.Screen name="caprofile" options={{title: 'Testing',headerShown: false}}/> */}
       </Stack>
     </>

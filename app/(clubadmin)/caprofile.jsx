@@ -178,13 +178,13 @@ export default function CAProfile() {
         onRequestClose={() => setIsNameModalVisible(false)}
       >
         <TouchableWithoutFeedback onPress={() => setIsNameModalVisible(false)} >
-        <BlurView intensity={70} tint="dark" style={styles.modalOverlay}>
+        <BlurView experimentalBlurMethod="dimezisBlurView" intensity={70} tint="dark" style={styles.modalOverlay}>
           
-          <CAProfileCard style={{ height: "30%", width: "90%" }}>
+          <CAProfileCard style={{ maxHeight: "100%", width: "90%" }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View>
             <Text style={styles.modalTitle}>Edit Club Name</Text>
-            <Spacer height={'10%'}/>
+            <Spacer height={25}/>
             <TextInput
               style={styles.input}
               placeholder="Enter Club Name"
@@ -193,7 +193,7 @@ export default function CAProfile() {
               placeholderTextColor="#ccc"
             />
 
-            <Spacer height={'20%'}/>
+            <Spacer height={35}/>
 
 
             <View style={styles.modalActions}>

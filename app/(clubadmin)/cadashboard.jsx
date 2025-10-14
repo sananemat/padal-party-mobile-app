@@ -15,7 +15,7 @@ export default function CADashboard() {
       {/* Title */}
       <Text style={styles.heading}>Dashboard Overview</Text>
 
-      <ThemedView style={[styles.grid, {height: "15%"}]}>
+      <ThemedView style={[styles.grid, ]}>
         <CADashboardCard  style={{flex:1}}
           icon={<Ionicons name="business" size={32} color="#38C6F4" />}
           title="Club Profile"
@@ -29,7 +29,7 @@ export default function CADashboard() {
           onPress={() => router.push("/cacourts")}
         />
       </ThemedView>
-      <ThemedView style={[styles.grid, {height: "15%"}]}>
+      <ThemedView style={[styles.grid, ]}>
         <CADashboardCard style={{flex:1}}
           icon={<Ionicons name="calendar-number" size={32} color="#EE3C79" />}
           title="Booking"
@@ -40,18 +40,21 @@ export default function CADashboard() {
           icon={<Ionicons name="stats-chart" size={32} color="#38C6F4" />}
           title="Analytics"
           subtitle="Reports"
+          onPress={() => router.push("/caanalytics")}
         />
         </ThemedView>
-        <ThemedView style={[styles.grid, {height: "15%"}]}>
+        <ThemedView style={[styles.grid, ]}>
         <CADashboardCard style={{flex:1}}
           icon={<Ionicons name="trophy" size={32} color="#38C6F4" />}
           title="Tournaments"
           subtitle="Management"
+          onPress={() => router.push("/catournaments")}
         />
         <CADashboardCard style={{flex:1}}
           icon={<Ionicons name="chatbubble-ellipses" size={32} color="#EE3C79" />}
           title="Communications"
           subtitle="Notifications"
+          onPress={() => router.push("/cacomms")}
         />
         </ThemedView>
     </ThemedView>

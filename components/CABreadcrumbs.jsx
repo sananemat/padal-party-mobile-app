@@ -7,27 +7,35 @@ const BREADCRUMB_LABELS = {
   cadashboard: 'Dashboard',
   caprofile: 'Club Profile',
   cacourts: 'Court Management',
-  cabookings: 'Booking Management',
+  cabookings: 'Bookings',
   caanalytics: 'Analytics',
   catournaments: 'Tournaments',
-  cacomms: 'Communications',
+  cacomms: 'Communication',
+  cacourtavailability: 'Court Availability',
+  cacreatetourney: 'Create Tournament'
 };
+
+let prefixPath = "Dashboard > ";
 
 export default function CABreadcrumbs() {
   const segments = useSegments();
   const currentPage = segments[segments.length - 1];
   const title = BREADCRUMB_LABELS[currentPage] || currentPage;
+  if(currentPage == "cacourtavailability")
+    prefixPath= "Dashboard > Bookings > "
 
+  if(currentPage == "cacreatetourney")
+    prefixPath= "Dashboard > Tournaments > "
   return (
     <Text style={styles.breadcrumbs}>
-      Dashboard &gt; <Text style={{color: "#eee"}}>{title}</Text>
+      {prefixPath}<Text style={{color: "#eee"}}>{title}</Text>
     </Text>
   );
 }
 
 const styles = StyleSheet.create({
   breadcrumbs: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#aaa",
     marginBottom: 12,
     marginLeft: "2.5%",

@@ -45,10 +45,10 @@ export default function ContactInfoModal({
       onRequestClose={onClose}
     >
       <TouchableWithoutFeedback onPress={onClose}>
-        <BlurView intensity={70} tint="dark" style={styles.overlay}>
-          <CAProfileCard style={styles.modalCard}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <View style={styles.content}>
+        <BlurView experimentalBlurMethod="dimezisBlurView" intensity={70} tint="dark" style={styles.overlay}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContainer}>
+              <CAProfileCard style={styles.modalCard}>
                 <Text style={styles.title}>Contact Info</Text>
 
                 {/* Phone */}
@@ -101,9 +101,9 @@ export default function ContactInfoModal({
                     <Text style={styles.buttonText}>Update</Text>
                   </TouchableOpacity>
                 </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </CAProfileCard>
+              </CAProfileCard>
+            </View>
+          </TouchableWithoutFeedback>
         </BlurView>
       </TouchableWithoutFeedback>
     </Modal>
@@ -117,15 +117,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
   },
-  modalCard: {
+  modalContainer: {
     width: "90%",
-    height: "45%",
-    padding: 16,
-    marginTop: "15%",
+  },
+  modalCard: {
+    padding: 10,
   },
   content: {
-    flex: 1,
-    justifyContent: "space-between",
+    // removed - no longer needed
   },
   title: {
     fontSize: 20,

@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Platform,
   TouchableWithoutFeedback,
+  ScrollView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
@@ -95,60 +96,73 @@ export default function EditPhotoModal({
       onRequestClose={onCancel}
     >
       {/* BlurView to blur the background */}
-      <TouchableWithoutFeedback onPress={onCancel} >
-      <BlurView intensity={70} style={styles.blurContainer} tint="default">
-        <View style={styles.centered}>
-          <View style={styles.card}>
+      <TouchableWithoutFeedback onPress={onCancel}>
+        <BlurView
+          experimentalBlurMethod="dimezisBlurView"
+          intensity={70}
+          style={styles.blurContainer}
+          tint="dark"
+        >
+          <View style={styles.centered}>
             <TouchableWithoutFeedback>
-            <View>
-            <Text style={styles.title}>Edit Club Photo</Text>
+              <View style={styles.card}>
+                {/* <ScrollView
+                  contentContainerStyle={styles.scrollContent}
+                  showsVerticalScrollIndicator={false}
+                  bounces={false}
+                > */}
+                  <Text style={styles.title}>Edit Club Photo</Text>
 
-            <Spacer height={"7%"}/>
+                  <Spacer height={20} />
 
+                  <Text style={styles.sectionLabel}>Current Photo</Text>
+                  <Spacer height={8} />
+                  <View style={styles.previewBox}>
+                    {processing ? (
+                      <ActivityIndicator size="large" />
+                    ) : preview ? (
+                      <Image source={{ uri: preview }} style={styles.image} />
+                    ) : (
+                      <View style={styles.placeholder}>
+                        <Text style={styles.placeholderText}>No image</Text>
+                      </View>
+                    )}
+                  </View>
 
+                  <Spacer height={16} />
+                  <Text style={styles.sectionLabel}>Upload New Photo</Text>
+                  <Spacer height={12} />
+                  <TouchableOpacity
+                    style={styles.uploadBtn}
+                    onPress={pickImageFromGallery}
+                  >
+                    <Text style={styles.cancelText}>Upload Photo</Text>
+                  </TouchableOpacity>
 
-            <Text style={styles.sectionLabel}>Current Photo</Text>
-            <Spacer height={"2%"}/>
-            <View style={styles.previewBox}>
-              {processing ? (
-                <ActivityIndicator size="large" />
-              ) : preview ? (
-                <Image source={{ uri: preview }} style={styles.image} />
-              ) : (
-                <View style={styles.placeholder}>
-                  <Text style={styles.placeholderText}>No image</Text>
-                </View>
-              )}
-            </View>
+                  <Text style={styles.recommend}>
+                    Recommended Size 800px By 600px
+                  </Text>
+                  <Spacer height={16} />
+                  <View style={styles.actionsRow}>
+                    <TouchableOpacity
+                      style={styles.cancelBtn}
+                      onPress={onCancel}
+                    >
+                      <Text style={styles.cancelText}>Cancel</Text>
+                    </TouchableOpacity>
 
-              <Spacer height={"5%"}/>
-            <Text style={[styles.sectionLabel, { marginTop: 12 }]}>
-              Upload New Photo
-            </Text>
-            <Spacer height={"3%"}/>
-            <TouchableOpacity
-              style={styles.uploadBtn}
-              onPress={pickImageFromGallery}
-            >
-              <Text style={styles.cancelText}>Upload Photo</Text>
-            </TouchableOpacity>
-
-            <Text style={styles.recommend}>Recommended Size 800px By 600px</Text>
-            <Spacer height={"5%"}/>
-            <View style={styles.actionsRow}>
-              <TouchableOpacity style={styles.cancelBtn} onPress={onCancel}>
-                <Text style={styles.cancelText}>Cancel</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.updateBtn} onPress={handleUpdate}>
-                <Text style={styles.updateText}>Update</Text>
-              </TouchableOpacity>
-            </View>
-            </View>
+                    <TouchableOpacity
+                      style={styles.updateBtn}
+                      onPress={handleUpdate}
+                    >
+                      <Text style={styles.updateText}>Update</Text>
+                    </TouchableOpacity>
+                  </View>
+                {/* </ScrollView> */}
+              </View>
             </TouchableWithoutFeedback>
           </View>
-        </View>
-      </BlurView>
+        </BlurView>
       </TouchableWithoutFeedback>
     </Modal>
   );
@@ -163,40 +177,43 @@ const styles = StyleSheet.create({
   centered: {
     width: "100%",
     alignItems: "center",
+    justifyContent: "center",
   },
   card: {
     width: "90%",
-    height: "70%", // per your request
-    backgroundColor: "#3C54A5",
+    maxHeight: "100%",
+    backgroundColor: "#0E1340",
     borderRadius: 16,
-    padding: 16,
-    marginTop: "40%",
     // drop shadow
     shadowColor: "#000",
     shadowOpacity: 0.25,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 6 },
     elevation: 20,
+    overflow: "hidden",
+    padding: 10
+  },
+  scrollContent: {
+    padding: 16,
+    flexGrow: 1,
   },
   title: {
     fontSize: 18,
     fontWeight: "700",
     color: "#fff",
     marginBottom: 8,
-    textAlign: "center"
+    textAlign: "center",
   },
   sectionLabel: {
     color: "#cbd5e6",
     fontSize: 14,
-    marginTop: 6,
   },
   previewBox: {
     width: "100%",
     height: 180,
-    marginTop: 8,
     borderRadius: 12,
     overflow: "hidden",
-    backgroundColor: "#12203a",
+    // backgroundColor: "#12203a",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -211,11 +228,10 @@ const styles = StyleSheet.create({
   },
   placeholderText: { color: "#666" },
   uploadBtn: {
-    marginTop: 12,
     alignSelf: "center",
     paddingHorizontal: 18,
     paddingVertical: 10,
-    backgroundColor: "#0E1340",
+    backgroundColor: "#000320",
     borderRadius: 8,
   },
   uploadBtnText: { color: "#061224", fontWeight: "700" },
@@ -227,7 +243,6 @@ const styles = StyleSheet.create({
   actionsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 12,
   },
   cancelBtn: {
     flex: 1,

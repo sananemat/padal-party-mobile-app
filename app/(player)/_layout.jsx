@@ -1,43 +1,54 @@
-import { Tabs } from "expo-router"
-import { useColorScheme } from "react-native"
-import { Colors } from '../../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
+import { Stack } from "expo-router";
+import { Tabs } from "expo-router";
+import { useColorScheme } from "react-native";
+import { Colors } from "../../constants/Colors";
 import { TabBar } from "../../components/TabBar";
-import PlayerOnly from "../../components/auth/PlayerOnly";
 
 export default function PlayerLayout() {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.light
+  const theme = Colors[colorScheme] ?? Colors.light;
+
   return (
-    <>
-      <Tabs tabBar={props => <TabBar {...props}/>}
-        screenOptions={{ 
-            headerShown: false, 
-            tabBarStyle:{
-              backgroundColor: theme.navBackground,
-              padding: 10,
-              height: 90,
-              borderTopWidth: 0
-            },
-            tabBarActiveTintColor: theme.iconColorFocused,
-            tabBarInactiveTintColor: theme.iconColor
-          }} 
-      >
-        <Tabs.Screen 
-          name="home" 
-          options={{title: 'Home'}}
-        />
-        <Tabs.Screen 
-          name="create" 
-          options={{title: 'Create'}}
-        />
-        
-        <Tabs.Screen 
-          name="profile" 
-          options={{title: 'Profile'}}
-        />
-        
-      </Tabs>
-    </>
-  )
+    <Stack
+        screenOptions={{
+            headerStyle: {backgroundColor: theme.navBackground},
+            headerTintColor: theme.title,
+            headerShadowVisible: false,
+            headerTitleStyle: {fontSize:24, fontWeight: "bold"},
+            headerBackButtonMenuEnabled: false,
+            // headerBackTitle: "",
+            headerBackButtonDisplayMode: "minimal"
+            
+            
+        }}
+    >
+      {/* Tabs as the main entry point */}
+      <Stack.Screen
+        name="(tabs)"
+        options={{ headerShown: false }}
+      />
+      {/* The standalone screen */}
+      <Stack.Screen
+        name="career"
+        options={{
+          title: "Career",
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="bookacourt"
+        options={{
+          title: "Book a Court",
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="mybookings"
+        options={{
+          title: "My Bookings",
+          headerShown: true,
+        }}
+      />
+    </Stack>
+  );
 }

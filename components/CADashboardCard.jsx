@@ -1,4 +1,4 @@
-// components/common/ThemedCard.jsx
+// components/CADashboardCard.jsx
 import React from "react";
 import { View, StyleSheet, useColorScheme } from "react-native";
 import { PlatformPressable, Text } from "@react-navigation/elements";
@@ -18,9 +18,9 @@ export function CADashboardCard({
   return (
     <PlatformPressable
       onPress={onPress}
-      style={[{ width, height, margin: 8 }, style]}
+      style={[{ width, height, margin: 6 }, style]}
     >
-      <View style={[styles.card, { backgroundColor: theme.uiBackground }]}>
+      <View style={[styles.card, { backgroundColor: theme.cardBackground }]}>
         {/* Icon */}
         <View style={styles.iconBox}>{icon}</View>
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   title: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
     color: "#fff",
   },

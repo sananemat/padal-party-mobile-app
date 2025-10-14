@@ -1,10 +1,10 @@
 import { Button, Pressable, StyleSheet, Text } from 'react-native'
 
-import Spacer from "../../components/Spacer"
-import ThemedText from "../../components/ThemedText"
-import ThemedView from "../../components/ThemedView"
-import { useUser } from '../../hooks/useUser'
-import ThemedButton from '../../components/ThemedButton'
+import Spacer from "../../../components/Spacer"
+import ThemedText from "../../../components/ThemedText"
+import ThemedView from "../../../components/ThemedView"
+import { useUser } from '../../../hooks/useUser'
+import ThemedButton from '../../../components/ThemedButton'
 
 const Profile = () => {
 

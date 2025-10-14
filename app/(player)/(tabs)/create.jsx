@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native'
 
-import Spacer from "../../components/Spacer"
-import ThemedText from "../../components/ThemedText"
-import ThemedView from "../../components/ThemedView"
+import Spacer from "../../../components/Spacer"
+import ThemedText from "../../../components/ThemedText"
+import ThemedView from "../../../components/ThemedView"
 
 const Create = () => {
   return (

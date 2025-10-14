@@ -1,10 +1,10 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
-import Spacer from "../../components/Spacer"
-import ThemedText from "../../components/ThemedText"
-import ThemedView from "../../components/ThemedView"
-import {NeonCard} from '../../components/NeonCard'
-import { StatsCard } from '../../components/StatsCard'
+import Spacer from "../../../components/Spacer"
+import ThemedText from "../../../components/ThemedText"
+import ThemedView from "../../../components/ThemedView"
+import {NeonCard} from '../../../components/NeonCard'
+import { StatsCard } from '../../../components/StatsCard'
 
 const Home = () => {
   return (
@@ -18,14 +18,14 @@ const Home = () => {
       <View style={{flexDirection: 'row', alignItems:'center', width:'90%', height:'25%'}}>
         <StatsCard 
           profileImage={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQi2Mm5P8j09P4hPKa1B-t9eIOHzHmR7IBkw&s"}}
-          racketIcon={require("../../assets/icons/racket.png")}
+          racketIcon={require("../../../assets/icons/racket.png")}
         />
       </View>
       <Spacer height={40}/>
       <View style={{flexDirection: 'row', alignItems:'center', width:'90%', height:'7%'}}>
         <NeonCard flexDirection={'row'} style={{flex:1}} onPress={() => console.log("Rectangle pressed")}>
           <Spacer width={'10%'}/>
-          <Image source={require("../../assets/icons/tennis-court.png")} style={{ width: '15%', height: '100%', color:"#fff", }} />
+          <Image source={require("../../../assets/icons/tennis-court.png")} style={{ width: '15%', height: '100%', color:"#fff", }} />
           <Spacer width={'15%'}/>
           <Text style={{ color: "#fff",flex:1  }}>Private Court</Text>
         </NeonCard>
@@ -33,13 +33,13 @@ const Home = () => {
       <Spacer height={10}/>
       <View style={{flexDirection: 'row', alignItems:'center', width:'90%', height:'15%'}}>
         <NeonCard onPress={() => console.log("Square pressed")}>
-          <Image source={require("../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
+          <Image source={require("../../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
           <Spacer height={20}/>
           <Text style={{ color: "#fff" }}>Book a Court</Text>
         </NeonCard>
         <Spacer width={'10%'}/>
         <NeonCard onPress={() => console.log("Square pressed")}>
-          <Image source={require("../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
+          <Image source={require("../../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
           <Spacer height={20}/>
           <Text style={{ color: "#fff" }}>Find a Match</Text>
         </NeonCard>
@@ -47,13 +47,13 @@ const Home = () => {
       <Spacer height={10}/>
       <View style={{flexDirection: 'row', alignItems:'center', width:'90%', height:'15%'}}>
         <NeonCard onPress={() => console.log("Square pressed")}>
-          <Image source={require("../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
+          <Image source={require("../../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
           <Spacer height={20}/>
           <Text style={{ color: "#fff" }}>My Bookings</Text>
         </NeonCard>
         <Spacer width={'10%'}/>
         <NeonCard onPress={() => console.log("Square pressed")}>
-          <Image source={require("../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
+          <Image source={require("../../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
           <Spacer height={20}/>
           <Text style={{ color: "#fff" }}>Leaderboards</Text>
         </NeonCard>
@@ -61,13 +61,13 @@ const Home = () => {
       <Spacer height={10}/>
       <View style={{flexDirection: 'row', alignItems:'center', width:'90%', height:'15%'}}>
         <NeonCard onPress={() => console.log("Square pressed")}>
-          <Image source={require("../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
+          <Image source={require("../../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
           <Spacer height={20}/>
           <Text style={{ color: "#fff" }}>My Clubs</Text>
         </NeonCard>
         <Spacer width={'10%'}/>
         <NeonCard onPress={() => console.log("Square pressed")}>
-          <Image source={require("../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
+          <Image source={require("../../../assets/icons/tennis-court.png")} style={{ width: '30%', height: '30%', color:"#fff" }} />
           <Spacer height={20}/>
           <Text style={{ color: "#fff" }}>Tournaments</Text>
         </NeonCard>

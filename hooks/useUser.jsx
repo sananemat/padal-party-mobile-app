@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { UserContextOld } from "../context/UserContext-old";
 import { UserContext } from "../context/UserContext";
 
 export function useUser()

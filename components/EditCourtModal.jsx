@@ -125,7 +125,8 @@ export default function EditCourtModal({
       onRequestClose={handleCancel}
     >
       <TouchableWithoutFeedback onPress={handleCancel}>
-        <BlurView intensity={70} tint="dark" style={styles.overlay}>
+        <BlurView experimentalBlurMethod="dimezisBlurView" intensity={70} tint="dark" style={styles.overlay}>
+          <View style={styles.modalContainer}>
           <CAProfileCard style={styles.modalCard}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.content}>
@@ -320,6 +321,7 @@ export default function EditCourtModal({
               </Modal>
             )}
           </CAProfileCard>
+          </View>
         </BlurView>
       </TouchableWithoutFeedback>
     </Modal>
@@ -332,15 +334,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  modalCard: {
+  modalContainer: {
     width: "92%",
-    height: "75%", // adjust if you want bigger/smaller
-    padding: 8,
-    marginTop: "25%",
+  },
+  modalCard: {
+    padding: 10,
   },
   content: {
-    flex: 1,
-    justifyContent: "space-between",
+    //flex: 1,
+    //justifyContent: "space-between",
   },
   title: {
     fontSize: 20,

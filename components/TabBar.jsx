@@ -3,8 +3,6 @@ import {
     View,
     StyleSheet,
     Dimensions,
-    LayoutAnimation,
-    UIManager,
     Platform,
   } from 'react-native';
   import { useLinkBuilder } from '@react-navigation/native';
@@ -17,11 +15,6 @@ import {
     withTiming,
     withSpring
   } from 'react-native-reanimated';
-  
-  // Enable LayoutAnimation on Android (optional fallback)
-  if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
   
   const { width: SCREEN_WIDTH } = Dimensions.get('window');
   
@@ -44,6 +37,9 @@ import {
         <Ionicons name={isFocused ? 'home' : 'home-outline'} size={24} {...props} />
       ),
       create: (isFocused, props) => (
+        <Ionicons name={isFocused ? 'create' : 'create-outline'} size={24} {...props} />
+      ),
+      career: (isFocused, props) => (
         <Ionicons name={isFocused ? 'create' : 'create-outline'} size={24} {...props} />
       ),
     };
