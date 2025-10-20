@@ -49,6 +49,13 @@ export default function PlayerLayout() {
           headerShown: true,
         }}
       />
+      <Stack.Screen
+        name="findamatch"
+        options={{
+          title: "Find a Match",
+          headerShown: true,
+        }}
+      />
     </Stack>
   );
 }

@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {jwtDecode} from "jwt-decode";
 
 export const UserContext = createContext();
-const API_URL = process.env.API_URL;
+const API_URL = process.env.EXPO_PUBLIC_API_URL;
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);

@@ -15,6 +15,7 @@ import { BlurView } from "expo-blur";
 import { CAProfileCard } from "./CAProfileCard";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Dropdown } from 'react-native-element-dropdown';
+import { Colors } from "../constants/Colors";
 
 export default function RescheduleMatchModal({
   visible,
@@ -211,7 +212,7 @@ export default function RescheduleMatchModal({
                   containerStyle={styles.dropdownList}
                   itemContainerStyle={styles.dropdownItem}
                   itemTextStyle={styles.itemTextStyle}
-                  activeColor="#061224"
+                  activeColor={Colors.cardBackground}
                   selectedStyle={styles.dropdownItemSelected} // Use selectedStyle for the container of the selected item in the list
                   //selectedTextStyle={styles.selectedItemTextStyle} // <-- ADD THIS LINE to control the TEXT color of the selected item in the list
                   inputSearchStyle={styles.inputSearchStyle}
@@ -484,13 +485,13 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   dropdownStyle: {
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     borderWidth: 1,
     borderColor: "#444",
     borderRadius: 8,
   },
   dropdownContainerStyle: {
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     borderWidth: 1,
     borderColor: "#444",
     borderRadius: 8,
@@ -503,7 +504,7 @@ const styles = StyleSheet.create({
     borderColor: "#444",
     borderRadius: 8,
     padding: 12,
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     marginBottom: 12,
   },
   dateIcon: {
@@ -526,7 +527,7 @@ const styles = StyleSheet.create({
     borderColor: "#444",
     borderRadius: 8,
     padding: 12,
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     flex: 1,
     marginHorizontal: 4,
   },
@@ -547,7 +548,7 @@ const styles = StyleSheet.create({
     borderColor: "#444",
     borderRadius: 8,
     padding: 12,
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     marginBottom: 8,
   },
   slotItem: {
@@ -585,7 +586,7 @@ const styles = StyleSheet.create({
   saveButton: {
     flex: 1,
     marginLeft: 8,
-    backgroundColor: "#EE3C79",
+    backgroundColor: Colors.primary,
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
@@ -596,7 +597,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   errorText: {
-    color: "#EF4444",
+    color: Colors.warning,
     fontSize: 14,
     marginTop: 8,
     textAlign: "center",
@@ -615,14 +616,14 @@ const styles = StyleSheet.create({
   },
   timePickerContainer: {
     width: "80%",
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     padding: 20,
     alignItems: "center",
   },
   datePickerContainer: {
     width: "80%",
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     padding: 20,
     alignItems: "center",
@@ -641,7 +642,7 @@ const styles = StyleSheet.create({
   },
   dateTimePicker: {
     width: "100%",
-    backgroundColor: "#000320",
+    backgroundColor: Colors.background,
     borderRadius: 12,
     overflow: "hidden",
   },
@@ -670,7 +671,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   confirmButton: {
-    backgroundColor: "#EE3C79",
+    backgroundColor: Colors.primary,
     marginLeft: 8,
   },
   dropdown: {
@@ -679,7 +680,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
-    backgroundColor: '#061224', // Dark background like other inputs
+    backgroundColor: Colors.cardBackground, // Dark background like other inputs
     marginBottom: 12,
   },
   dropdownPlaceholder: {
@@ -692,12 +693,12 @@ const styles = StyleSheet.create({
   },
   // Style for the dropdown list background
   dropdownList: {
-    backgroundColor: '#061224', // Dark background
+    backgroundColor: Colors.cardBackground, // Dark background
     borderColor: '#444',
   },
   // Style for individual items
   dropdownItem: {
-    backgroundColor: '#061224', // Dark background
+    backgroundColor: Colors.cardBackground, // Dark background
     borderBottomColor: '#444',
   },
   dropdownItemSelected: {
@@ -707,14 +708,14 @@ const styles = StyleSheet.create({
     color: '#fff', // White text for items
   },
   selectedItemTextStyle: {
-    color: '#38C6F4', // Highlight color for selected item text
+    color: Colors.primaryAlt, // Highlight color for selected item text
     fontWeight: '600',
   },
   // Style for the search input (if enabled)
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-    backgroundColor: '#061224', // Dark background
+    backgroundColor: Colors.cardBackground, // Dark background
     color: '#fff', // White text
     borderColor: '#444',
     borderRadius: 8,

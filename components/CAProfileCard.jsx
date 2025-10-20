@@ -10,13 +10,13 @@ export function CAProfileCard({
   style,
 }) {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.dark;
+  // const theme = Colors[colorScheme] ?? Colors.dark;
 
   return (
     <View
       style={[
         styles.card,
-        { backgroundColor: theme.cardBackground, width, height },
+        { backgroundColor: Colors.cardBackground, width, height },
         style,
       ]}
     >

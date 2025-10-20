@@ -17,6 +17,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import CABreadcrumbs from "../../components/CABreadcrumbs";
 import { CAProfileCard } from "../../components/CAProfileCard"; // ✅ Added import
 import Svg, { Path } from "react-native-svg";
+import { Colors } from "../../constants/Colors";
 
 // 🔹 Sample data for All Courts (Overall)
 const OVERALL_DATA = {
@@ -226,7 +227,7 @@ export default function CAAnalytics() {
           itemContainerStyle={styles.dropdownItem}
           itemTextStyle={styles.itemTextStyle}
           selectedStyle={styles.dropdownItemSelected}
-          activeColor="#061224" // Use activeColor instead of selectedTextStyle
+          activeColor={Colors.background} // Use activeColor instead of selectedTextStyle
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
           data={SAMPLE_COURTS}
@@ -250,14 +251,14 @@ export default function CAAnalytics() {
             <View style={styles.statContent}>
               <View style={styles.statHeader}>
                 <Text style={styles.statTitle}>Total Bookings</Text>
-                <Ionicons name="calendar" size={24} color="#38C6F4" />
+                <Ionicons name="calendar" size={24} color={Colors.primaryAlt} />
               </View>
               <Text style={styles.statValue}>{data.totalBookings}</Text>
               {/* Simple diagonal path line (no chart) */}
               <Svg width="100%" height={20}>
                 <Path
                   d="M0 10 L40,5 L80,3 L120,6 L160,1"
-                  stroke="#38C6F4"
+                  stroke={Colors.primaryAlt}
                   strokeWidth="3"
                   fill="none"
                 />
@@ -268,14 +269,14 @@ export default function CAAnalytics() {
             <View style={styles.statContent}>
               <View style={styles.statHeader}>
                 <Text style={styles.statTitle}>Unique Players</Text>
-                <Ionicons name="people" size={24} color="#38C6F4" />
+                <Ionicons name="people" size={24} color={Colors.primaryAlt} />
               </View>
               <Text style={styles.statValue}>{data.uniquePlayers}</Text>
               {/* Simple diagonal path line (no chart) */}
               <Svg width="100%" height={20}>
                 <Path
                   d="M0 10 L40,5 L80,3 L120,6 L160,1"
-                  stroke="#38C6F4"
+                  stroke={Colors.primaryAlt}
                   strokeWidth="3"
                   fill="none"
                 />
@@ -288,14 +289,14 @@ export default function CAAnalytics() {
             <View style={styles.statContent}>
               <View style={styles.statHeader}>
                 <Text style={styles.statTitle}>Cancelled</Text>
-                <Ionicons name="close-circle" size={24} color="#EE3C79" />
+                <Ionicons name="close-circle" size={24} color={Colors.primary} />
               </View>
               <Text style={styles.statValue}>{data.cancelled}</Text>
               {/* Simple diagonal path line (no chart) */}
               <Svg width="100%" height={20}>
                 <Path
                   d="M0 10 L40,5 L80,3 L120,6 L160,1"
-                  stroke="#EE3C79"
+                  stroke={Colors.primary}
                   strokeWidth="3"
                   fill="none"
                 />
@@ -313,7 +314,7 @@ export default function CAAnalytics() {
               <Svg width="100%" height={20}>
                 <Path
                   d="M0 10 L40,5 L80,3 L120,6 L160,1"
-                  stroke="#38C6F4"
+                  stroke={Colors.primaryAlt}
                   strokeWidth="3"
                   fill="none"
                 />
@@ -355,9 +356,9 @@ export default function CAAnalytics() {
             yAxisLabel=""
             yAxisSuffix=""
             chartConfig={{
-              backgroundColor: "#061224",
-              backgroundGradientFrom: "#061224",
-              backgroundGradientTo: "#061224",
+              backgroundColor: Colors.background,
+              backgroundGradientFrom: Colors.background,
+              backgroundGradientTo: Colors.background,
               barPercentage: 0.2,
               decimalPlaces: 0,
               color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -382,7 +383,7 @@ export default function CAAnalytics() {
               <Text style={styles.legendText}>Revenue</Text>
             </View>
             <View style={styles.legendItem}>
-              <View style={[styles.legendDot, { backgroundColor: "#38C6F4" }]} />
+              <View style={[styles.legendDot, { backgroundColor: Colors.primaryAlt }]} />
               <Text style={styles.legendText}>Bookings</Text>
             </View>
           </View>
@@ -429,9 +430,9 @@ export default function CAAnalytics() {
             yAxisLabel=""
             yAxisSuffix=""
             chartConfig={{
-              backgroundColor: "#061224",
-              backgroundGradientFrom: "#061224",
-              backgroundGradientTo: "#061224",
+              backgroundColor: Colors.background,
+              backgroundGradientFrom: Colors.background,
+              backgroundGradientTo: Colors.background,
               decimalPlaces: 0,
               color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -450,7 +451,7 @@ export default function CAAnalytics() {
               <Text style={styles.legendText}>Peak Hours</Text>
             </View>
             <View style={styles.legendItem}>
-              <View style={[styles.legendDot, { backgroundColor: "#38C6F4" }]} />
+              <View style={[styles.legendDot, { backgroundColor: Colors.primaryAlt }]} />
               <Text style={styles.legendText}>Low Hours</Text>
             </View>
           </View>
@@ -532,7 +533,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   activeTab: {
-    backgroundColor: "#38C6F4",
+    backgroundColor: Colors.primaryAlt,
   },
   tabText: {
     color: "#aaa",
@@ -548,7 +549,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
-    backgroundColor: '#061224',
+    backgroundColor: Colors.background,
     marginBottom: 12,
   },
   dropdownPlaceholder: {
@@ -560,11 +561,11 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   dropdownList: {
-    backgroundColor: '#061224',
+    backgroundColor: Colors.background,
     borderColor: '#444',
   },
   dropdownItem: {
-    backgroundColor: '#061224',
+    backgroundColor: Colors.background,
     borderBottomColor: '#444',
   },
   itemTextStyle: {
@@ -576,7 +577,7 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-    backgroundColor: '#061224',
+    backgroundColor: Colors.background,
     color: '#fff',
     borderColor: '#444',
     borderRadius: 8,
@@ -699,7 +700,7 @@ const styles = StyleSheet.create({
   },
   courtItemPink: {
     backgroundColor: "rgba(238, 60, 121, 0.2)",
-    borderColor: "#EE3C79",
+    borderColor: Colors.primary,
     borderWidth: 1,
   },
   courtItemGray: {
@@ -747,7 +748,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   playerNamePink: {
-    color: "#EE3C79",
+    color: Colors.primary,
   },
   playerNameGray: {
     color: "#6B7280",
@@ -758,7 +759,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   playerMatchesPink: {
-    color: "#EE3C79",
+    color: Colors.primary,
   },
   playerMatchesGray: {
     color: "#6B7280",

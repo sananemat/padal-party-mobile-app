@@ -14,6 +14,7 @@ import Spacer from "../../components/Spacer";
 import { useSegments } from "expo-router";
 import CABreadcrumbs from "../../components/CABreadcrumbs";
 import AddExternalBookingModal from "../../components/AddExternalBookingModal";
+import { Colors } from "../../constants/Colors";
 
 // 🔹 Helper to create Date objects
 const createDate = (dateStr, timeStr) => {
@@ -59,24 +60,24 @@ const [matches, setMatches] = useState([
     id: "1",
     courtId: "1",
     name: "Morning Doubles",
-    startDateTime: createDate("2025-10-11", "9:00 AM"),
-    endDateTime: createDate("2025-10-11", "10:30 AM"),
+    startDateTime: createDate("2025-10-19", "9:00 AM"),
+    endDateTime: createDate("2025-10-19", "10:30 AM"),
     isExternal: false,
   },
   {
     id: "2",
     courtId: "2",
     name: "Lunch Break",
-    startDateTime: createDate("2025-10-11", "12:00 PM"),
-    endDateTime: createDate("2025-10-11", "1:00 PM"),
+    startDateTime: createDate("2025-10-19", "12:00 PM"),
+    endDateTime: createDate("2025-10-19", "1:00 PM"),
     isExternal: true,
   },
   {
     id: "3",
     courtId: "2",
     name: "Afternoon Session",
-    startDateTime: createDate("2025-10-11", "3:00 PM"),
-    endDateTime: createDate("2025-10-11", "4:30 PM"),
+    startDateTime: createDate("2025-10-19", "3:00 PM"),
+    endDateTime: createDate("2025-10-19", "4:30 PM"),
     isExternal: false,
   },
   {
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   activeTab: {
-    backgroundColor: "#38C6F4",
+    backgroundColor: Colors.primaryAlt,
   },
   tabText: {
     color: "#aaa",
@@ -339,7 +340,7 @@ const styles = StyleSheet.create({
   addButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#EE3C79", // Pink background
+    backgroundColor: Colors.primary, // Pink background
     paddingHorizontal: 16,
     paddingVertical: 14,
     borderRadius: 8,
@@ -384,7 +385,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4B5563", // Gray
   },
   internalBooking: {
-    backgroundColor: "#061224", // Dark blue (same as timer boxes)
+    backgroundColor: Colors.background, // Dark blue (same as timer boxes)
   },
   bookingTime: {
     color: "#fff",
@@ -392,7 +393,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   bookingStatus: {
-    color: "#38C6F4", // Cyan
+    color: Colors.primaryAlt, // Cyan
     fontSize: 14,
     fontWeight: "600",
   },

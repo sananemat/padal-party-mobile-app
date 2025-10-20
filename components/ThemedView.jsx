@@ -4,11 +4,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ThemedView = ({style, safe=false, ...props }) => {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.light
+  //const theme = Colors[colorScheme] ?? Colors.light
 
   if(!safe) return (
     <View 
-      style={[{backgroundColor: theme.background,}, style]}
+      style={[{backgroundColor: Colors.background,}, style]}
       {...props}
     />
   )
@@ -18,7 +18,7 @@ const ThemedView = ({style, safe=false, ...props }) => {
   return (
     <View 
       style={[
-        {backgroundColor: theme.background,paddingTop: insets.top, paddingBottom: insets.bottom},
+        {backgroundColor: Colors.background,paddingTop: insets.top, paddingBottom: insets.bottom},
         style,
       ]}
       {...props}

@@ -9,7 +9,7 @@ const Create = () => {
     <ThemedView style={styles.container}>
 
       <ThemedText title={true} style={styles.heading}>
-        Add a New Book
+        Sample Test Page
       </ThemedText>
       <Spacer />
 

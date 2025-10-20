@@ -23,6 +23,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Colors } from "../../constants/Colors";
 
 // 🔹 Sample categories and skill levels
 const CATEGORIES = [
@@ -180,7 +181,7 @@ export default function CreateTournament() {
             labelField="label"
             valueField="value"
             placeholder="Select category"
-            activeColor="#0E1340"
+            activeColor={Colors.cardBackground}
             placeholderStyle={styles.dropdownText}
             value={formData.category}
             onChange={item => updateFormData("category", item.value)}
@@ -198,7 +199,7 @@ export default function CreateTournament() {
             labelField="label"
             valueField="value"
             placeholder="Select level"
-            activeColor="#0E1340"
+            activeColor={Colors.cardBackground}
             placeholderStyle={styles.dropdownText}
             value={formData.skillLevel}
             onChange={item => updateFormData("skillLevel", item.value)}
@@ -320,7 +321,7 @@ export default function CreateTournament() {
               value={item.value}
               status={formData.format === item.value ? 'checked' : 'unchecked'}
               onPress={() => updateFormData("format", item.value)}
-              color="#3C54A5"
+              color={Colors.uiBackground}
               uncheckedColor="#6B7280"
             />
             <Text style={styles.radioLabel}>{item.label}</Text>
@@ -342,7 +343,7 @@ export default function CreateTournament() {
               value={item.value}
               status={formData.matchFormat === item.value ? 'checked' : 'unchecked'}
               onPress={() => updateFormData("matchFormat", item.value)}
-              color="#3C54A5"
+              color={Colors.uiBackground}
               uncheckedColor="#6B7280"
             />
             <Text style={styles.radioLabel}>{item.label}</Text>
@@ -419,13 +420,13 @@ const renderStep4 = () => (
           </View>
         </View>
       </View>
-      <View style={[styles.reviewCard, {backgroundColor:"#0E1340"}]}>
+      <View style={[styles.reviewCard, {backgroundColor:Colors.cardBackground}]}>
         <Text style={styles.reviewSectionTitle}>Tournament Details</Text>
         <Text style={styles.reviewDetail}>Structure: <Text style={styles.reviewDetailValue}>{TOURNAMENT_FORMATS.find(f => f.value === formData.format)?.label}</Text></Text>
         <Text style={styles.reviewDetail}>Match Format: <Text style={styles.reviewDetailValue}>{MATCH_FORMATS.find(m => m.value === formData.matchFormat)?.label}</Text></Text>
         <Text style={styles.reviewDetail}>Schedule: <Text style={styles.reviewDetailValue}>{formData.scheduling === "auto" ? "Auto Generated" : "Manual"}</Text></Text>
       </View>
-      <View style={[styles.reviewCard, {backgroundColor:"#0E1340"}]}>
+      <View style={[styles.reviewCard, {backgroundColor:Colors.cardBackground}]}>
         <Text style={styles.reviewSectionTitle}>Registration</Text>
         <Text style={styles.reviewDetail}>Registration Opens: <Text style={styles.reviewDetailValue}>Immediately</Text></Text>
         <Text style={styles.reviewDetail}>Registration Closes: <Text style={styles.reviewDetailValue}>{formData.startDate || "--"}</Text></Text>
@@ -460,14 +461,14 @@ const renderStep4 = () => (
     currentStepIndicatorSize: 30,
     separatorStrokeWidth: 2,
     currentStepStrokeWidth: 3,
-    stepStrokeCurrentColor: "#3C54A5",
-    stepStrokeFinishedColor: "#3C54A5",
+    stepStrokeCurrentColor: Colors.uiBackground,
+    stepStrokeFinishedColor: Colors.uiBackground,
     stepStrokeUnFinishedColor: "#6B7280",
-    separatorFinishedColor: "#3C54A5",
-    separatorUnFinishedColor: "#0E1340",
-    stepIndicatorFinishedColor: "#3C54A5",
-    stepIndicatorUnFinishedColor: "#0E1340",
-    stepIndicatorCurrentColor: "#3C54A5",
+    separatorFinishedColor: Colors.uiBackground,
+    separatorUnFinishedColor: Colors.cardBackground,
+    stepIndicatorFinishedColor: Colors.uiBackground,
+    stepIndicatorUnFinishedColor: Colors.cardBackground,
+    stepIndicatorCurrentColor: Colors.uiBackground,
     stepIndicatorLabelFontSize: 12,
     currentStepIndicatorLabelFontSize: 12,
     stepIndicatorLabelCurrentColor: "#fff",
@@ -475,7 +476,7 @@ const renderStep4 = () => (
     stepIndicatorLabelUnFinishedColor: "#fff",
     labelColor: "#6B7280",
     labelSize: 12,
-    currentStepLabelColor: "#3C54A5",
+    currentStepLabelColor: Colors.uiBackground,
   };
 
   return (
@@ -541,7 +542,7 @@ const styles = StyleSheet.create({
     photoContainer: {
       width: "100%",
       height: 180,
-      backgroundColor: "#0E1340",
+      backgroundColor: Colors.cardBackground,
       borderRadius: 12,
       alignItems: "center",
       justifyContent: "center",
@@ -557,7 +558,7 @@ const styles = StyleSheet.create({
       width: 64,
       height: 64,
       borderRadius: 32,
-      backgroundColor: "#3C54A5",
+      backgroundColor: Colors.uiBackground,
       alignItems: "center",
       justifyContent: "center",
       marginBottom: 8,
@@ -576,7 +577,7 @@ const styles = StyleSheet.create({
     input: {
         width: "100%",
         height: 48,
-        backgroundColor: "#0E1340",
+        backgroundColor: Colors.cardBackground,
         borderRadius: 8,
         paddingHorizontal: 12,
         color: "#fff",
@@ -600,7 +601,7 @@ const styles = StyleSheet.create({
       dropdown: {
         width: "100%",
         height: 48,
-        backgroundColor: "#0E1340",
+        backgroundColor: Colors.cardBackground,
         borderRadius: 8,
         paddingHorizontal: 12,
         flexDirection: "row",
@@ -615,9 +616,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
       },
       dropdownList: {
-        backgroundColor: "#0E1340",
+        backgroundColor: Colors.cardBackground,
         borderColor: "#444",
-        activeColor: "#0E1340",
+        activeColor: Colors.cardBackground,
       },
       teamButtons: {
         flexDirection: "row",
@@ -627,17 +628,17 @@ const styles = StyleSheet.create({
       teamButton: {
         flex: 1,
         height: 48,
-        backgroundColor: "#0E1340",
+        backgroundColor: Colors.cardBackground,
         borderRadius: 8,
         alignItems: "center",
         justifyContent: "center",
         marginHorizontal: 2,
         borderWidth: 1,
-        borderColor: "#3C54A5",
+        borderColor: Colors.uiBackground,
       },
       teamButtonActive: {
-        backgroundColor: "#3C54A5",
-        borderColor: "#3C54A5",
+        backgroundColor: Colors.uiBackground,
+        borderColor: Colors.uiBackground,
       },
       teamButtonText: {
         color: "#fff",
@@ -656,7 +657,7 @@ const styles = StyleSheet.create({
         gap: 8,
       },
       nextButton: {
-        backgroundColor: "#EE3C79",
+        backgroundColor: Colors.primary,
         paddingVertical: 14,
         paddingHorizontal: 24,
         borderRadius: 8,
@@ -700,7 +701,7 @@ const styles = StyleSheet.create({
       },
       // Review cards
       reviewCard: {
-        backgroundColor: "#3C54A5",
+        backgroundColor: Colors.uiBackground,
         borderRadius: 12,
         padding: 16,
         marginBottom: 12,

@@ -2,12 +2,13 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { PlatformPressable, Text } from "@react-navigation/elements";
+import { Colors } from "../constants/Colors";
 
 export function NeonCard({
   children,
   width = "100%",
   height = "100%",
-  glowColors = ["#38C6F4", "#EE3C79"], // default cyan → pink
+  glowColors = [Colors.primaryAlt, Colors.primary], // default cyan → pink
   style,
   onPress,
   flexDirection='column'
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderRadius: 35,
-        backgroundColor: '#0E1340',
+        backgroundColor: Colors.cardBackground,
         shadowColor: '#070b2aff',
         shadowOffset: { width: 0, height: 10 },
         shadowOpacity: 0.3,

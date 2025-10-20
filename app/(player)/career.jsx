@@ -303,11 +303,11 @@ export default function Career() {
   );
 
   const renderTabs = () => (
+    <View style={styles.tabsContainer}>
     <ScrollView
       ref={scrollViewRef}
       horizontal
       showsHorizontalScrollIndicator={false}
-      style={styles.tabsContainer}
       contentContainerStyle={styles.tabsContent}
     >
       {TABS.map((tab) => (
@@ -322,6 +322,7 @@ export default function Career() {
         </TouchableOpacity>
       ))}
     </ScrollView>
+    </View>
   );
 
   // --- STATISTICS ---
@@ -435,7 +436,7 @@ export default function Career() {
       <CAProfileCard style={styles.partnerCard}>
         <View style={styles.partnerRowCard}>
           <View style={styles.partnerIconText}>
-            <MaterialCommunityIcons name="account-group" size={22} color="#38C6F4" style={{ marginRight: 8 }} />
+            <MaterialCommunityIcons name="account-group" size={22} color="#38C6F4" style={{ marginRight: 2 }} />
             <View>
               <Text style={styles.partnerLabel}>Most Played Partner</Text>
               <Text style={styles.partnerSubLabel}>12 matches together</Text>
@@ -450,7 +451,7 @@ export default function Career() {
       <CAProfileCard style={styles.partnerCard}>
         <View style={styles.partnerRowCard}>
           <View style={styles.partnerIconText}>
-            <MaterialCommunityIcons name="account-question" size={22} color="#EE3C79" style={{ marginRight: 8 }} />
+            <MaterialCommunityIcons name="account-question" size={22} color="#EE3C79" style={{ marginRight: 2 }} />
             <View>
               <Text style={styles.partnerLabel}>Most Played Opponent</Text>
               <Text style={styles.partnerSubLabel}>8 matches played</Text>
@@ -985,13 +986,14 @@ export default function Career() {
 
   return (
     <ThemedView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {renderPlayerCard()}
-        <Spacer height={16} />
+      {renderPlayerCard()}
+        <Spacer height={16} /> 
         {renderTabs()}
         <Spacer height={16} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        
         {renderContent()}
-        <Spacer height={100} />
+        <Spacer height={50} />
       </ScrollView>
       {selectedTeam && renderTeamStatsModal()}
       {selectedTournament && renderTournamentModal()}
@@ -1284,7 +1286,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     backgroundColor: "#10174A",
     borderRadius: 16,
-    padding: 16,
+    padding: 14,
   },
   biggestWinContainer: {
     flexDirection: "row",
@@ -1314,7 +1316,7 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    marginRight: 8,
+    marginRight: 6,
     borderWidth: 2,
     borderColor: "#fff",
     backgroundColor: "#232A4D",
@@ -1343,7 +1345,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#10174A",
     borderRadius: 16,
     paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 4,
     marginBottom: 8,
     gap: 8,
   },
@@ -1361,12 +1363,12 @@ const styles = StyleSheet.create({
   partnerIconText: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: 4,
   },
   partnerRight: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: 4,
   },
   partnerLabel: {
     fontSize: 15,

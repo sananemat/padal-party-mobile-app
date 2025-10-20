@@ -1,5 +1,5 @@
 // app/clubadmin/caprofile.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -23,8 +23,110 @@ import AmenitiesModal from "../../components/AmenitiesModal";
 import LocationModal from "../../components/LocationModal";
 import ContactInfoModal from "../../components/ContactInfoModal";
 import CABreadcrumbs from "../../components/CABreadcrumbs";
+import { useUser } from "../../hooks/useUser";
+
+const AMENITIES_ICON_MAP = {
+  "Parking": "car",
+  "Lighting": "bulb",
+  "Pro Shop": "storefront",
+  "Coaching": "person",
+  "Drinking Water": "water",
+  "Cafeteria": "fast-food",
+  "Free Wi-Fi": "wifi",
+  "First Aid": "medkit",
+  "Bike Rack": "bicycle",
+  "Shaded Seating": "umbrella",
+  "Indoor Court": "library",
+  "Garden Area": "leaf",
+  "Refreshments": "beer",
+  "Locker Rooms": "bed",
+};
+
 
 export default function CAProfile() {
+  const { user, accessToken } = useUser();
+  useEffect(() => {
+    console.log(process.env.EXPO_PUBLIC_API_URL);
+    if (!accessToken) return; // wait until token is ready
+
+    const fetchClubs = async () => {
+      try {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/club/get-all-clubs`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`, // ✅ add token here
+          },
+        });
+
+        if (!response.ok) 
+          {
+            console.error(response)
+            throw new Error("Failed to fetch clubs");
+          }
+
+        const data = await response.json();
+        //console.log(data[0].image_url);
+        setClubId(data[0]._id)
+        setClubPhoto(data[0].image_url)
+        setClubName(data[0].title)
+        const normalizedAmenities = data[0].amenities.map(amenity => ({
+          label: amenity,
+          icon: AMENITIES_ICON_MAP[amenity] || "star" // provide default icon if not in API
+        }));
+        setAmenities(normalizedAmenities);
+        setLocation({coords: data[0].location})
+        //setClubs(data.data || []); // adjust based on your backend response shape
+      } catch (err) {
+        console.error("Error fetching clubs:", err);
+        // setError(err.message);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    fetchClubs();
+  }, [accessToken]);
+
+
+  const updateClubField = async (fieldName, fieldValue) => {
+    if (!accessToken || !clubId) {
+      console.error("No access token available or Invalid Club Id");
+      return;
+    }
+  
+    try {
+      const updatePayload = {
+        _id: clubId, // Replace with actual club ID from your state/context
+        [fieldName]: fieldValue,
+      };
+  
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}/club/update-club`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(updatePayload),
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Failed to update ${fieldName}`);
+      }
+  
+      const data = await response.json();
+      console.log(`${fieldName} updated successfully`, data);
+      return data;
+    } catch (err) {
+      console.error(`Error updating ${fieldName}:`, err);
+      Alert.alert("Error", `Failed to update ${fieldName}`);
+    }
+  };
+ 
+  const [clubId, setClubId] = useState(null);
   const [amenities, setAmenities] = useState([]);
   const [amenitiesModalVisible, setAmenitiesModalVisible] = useState(false);
   const [contactInfo, setContactInfo] = useState({
@@ -56,8 +158,31 @@ export default function CAProfile() {
     // set the clubPhoto to the new base64 data URI
     setClubPhoto(newImageDataUri);
     setModalVisible(false);
+    updateClubField("image_url", newImageDataUri);
     // TODO: call your API to persist updated image (send newImageDataUri)
   };
+  const handleAmenitiesUpdate = (updated) => {
+    setAmenities(updated);
+    updateClubField("amenities", updated.map(a => a.label)); // Send only labels
+  };
+
+  // For club name
+  const handleClubNameUpdate = (newName) => {
+    setClubName(newName);
+    updateClubField("title", newName);
+  };
+
+  // For location
+  const handleLocationUpdate = (address, region) => {
+    setLocation({ coords: region, address });
+    updateClubField("location", region); // Update location with coordinates
+  };
+
+  // For contact info
+  const handleContactInfoUpdate = (updated) => {
+    setContactInfo(updated);
+    updateClubField("contactInfo", updated); // Adjust field name as needed
+};
 
   return (
     <ThemedView style={styles.container}>
@@ -207,7 +332,7 @@ export default function CAProfile() {
               <Pressable
                 style={styles.updateButton}
                 onPress={() => {
-                  setClubName(tempClubName); // update main state
+                  handleClubNameUpdate(tempClubName); // update main state
                   setIsNameModalVisible(false);
                 }}
               >
@@ -224,7 +349,7 @@ export default function CAProfile() {
       <AmenitiesModal
         visible={amenitiesModalVisible}
         onClose={() => setAmenitiesModalVisible(false)}
-        onUpdate={(updated) => setAmenities(updated)}
+        onUpdate={handleAmenitiesUpdate}
         selectedAmenities={amenities}
       />
       <LocationModal

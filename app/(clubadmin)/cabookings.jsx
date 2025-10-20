@@ -17,6 +17,7 @@ import { router, useSegments } from "expo-router";
 import CABreadcrumbs from "../../components/CABreadcrumbs";
 import OpenMatchTimerModal from "../../components/OpenMatchTimerModal";
 import RescheduleMatchModal from "../../components/RescheduleMatchModal";
+import { Colors } from "../../constants/Colors";
 
 
 // 🔹 Sample courts data
@@ -321,7 +322,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   activeTab: {
-    backgroundColor: "#EE3C79",
+    backgroundColor: Colors.primary,
   },
   tabText: {
     color: "#aaa",
@@ -426,11 +427,11 @@ const styles = StyleSheet.create({
     marginRight: 8, // Space between buttons
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: "#EF4444",
+    borderColor: Colors.primary,
     borderRadius: 6,
   },
   cancelButtonText: {
-    color: "#EF4444",
+    color: Colors.primary,
     fontSize: 14,
     fontWeight: "600",
   },
@@ -439,14 +440,12 @@ const styles = StyleSheet.create({
     paddingVertical: 6, // Consistent padding
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: "#38C6F4",
+    borderColor: Colors.primaryAlt,
     borderRadius: 6,
   },
   rescheduleButtonText: {
-    color: "#38C6F4",
+    color: Colors.primaryAlt,
     fontSize: 14,
     fontWeight: "600",
   },
-  // --- End Updated Button Styles ---
-  // Removed unused styles: matchHeader, matchInfo (replaced by new layout), headerTextContainer, matchHeaderRow
 });

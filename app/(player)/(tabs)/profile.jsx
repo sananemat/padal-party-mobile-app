@@ -14,9 +14,9 @@ const Profile = () => {
   return (
     <ThemedView style={styles.container}>
 
-      {/* <ThemedText title={true} style={styles.heading}>
+      {user && <ThemedText title={true} style={styles.heading}>
         {user.email}
-      </ThemedText>
+      </ThemedText>}
       <Spacer />
 
       <ThemedText>Player Profile Page</ThemedText>
@@ -24,7 +24,7 @@ const Profile = () => {
 
       <ThemedButton onPress={logout}>
         <Text style={{ color: '#f2f2f2' }}>Logout</Text>
-      </ThemedButton> */}
+      </ThemedButton>
 
     </ThemedView>
   )

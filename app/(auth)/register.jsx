@@ -19,7 +19,11 @@ const myTheme = {
       // Transparent ripple layer
       surfaceVariant: "transparent",
       outlineVariant: "transparent",
-      background: '#3C54A5',
+      outline: 'transparent', // Dark border
+      outlineVariant: 'transparent', // Dark border
+      onSurfaceVariant: Colors.placeholder,
+      background: Colors.cardBackground,
+      
     },
   };
 const genderList = [
@@ -120,43 +124,44 @@ const Register = () => {
 
   return (
     <ThemedView style={[styles.container]}>
-      <Svg height="100%" width="100%" style={StyleSheet.absoluteFill}>
-        <Defs>
+      {/* <Svg height="100%" width="100%" style={StyleSheet.absoluteFill}> */}
+        {/* <Defs> */}
           {/* Blue radial glow (top-left) */}
-          <RadialGradient
+          {/* <RadialGradient
             id="blueGlow"
             cx="20%" cy="90%" r="88%"
             fx="20%" fy="90%"
           >
             <Stop offset="0%" stopColor="#2DA8FF" stopOpacity="0.6" />
             <Stop offset="100%" stopColor="#0E1340" stopOpacity="0" />
-          </RadialGradient>
+          </RadialGradient> */}
 
           {/* Pink radial glow (bottom-right) */}
-          <RadialGradient
+          {/* <RadialGradient
             id="pinkGlow"
             cx="100%" cy="40%" r="34%"
             fx="110%" fy="30%"
           >
             <Stop offset="0%" stopColor="#FF2D78" stopOpacity="0.6" />
             <Stop offset="100%" stopColor="#0E1340" stopOpacity="0" />
-          </RadialGradient>
-        </Defs>
+          </RadialGradient> */}
+        {/* </Defs> */}
 
         {/* Draw rectangles filled with those radial gradients */}
-        <Rect x="0" y="0" width="100%" height="100%" fill="url(#blueGlow)" />
-        <Rect x="0" y="0" width="100%" height="100%" fill="url(#pinkGlow)" />
-      </Svg>
+        {/* <Rect x="0" y="0" width="100%" height="100%" fill="url(#blueGlow)" />
+        <Rect x="0" y="0" width="100%" height="100%" fill="url(#pinkGlow)" /> */}
+      {/* </Svg> */}
+      
         <Provider theme={myTheme} >
-        <ThemedView safe={true} style={{marginBottom:'0%'}}>
-        </ThemedView>
+        {/* <ThemedView safe={true} style={{marginBottom:'0%'}}>
+        </ThemedView> */}
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
             
                 <KeyboardAwareScrollView width="100%" style={{flex:1}}  contentContainerStyle={{ padding: 20}} enableOnAndroid={true} keyboardShouldPersistTaps="handled"
                     keyboardOpeningTime={25000} extraScrollHeight={130} automaticallyAdjustKeyboardInsets={true}  scrollEventThrottle={10} extraHeight={50} 
                     resetScrollToCoords={{x: 0, y: 0}} enableAutomaticScroll={(Platform.OS === 'android')}>
-                    <ThemedText style={[styles.title, {marginBottom:'-7%', marginTop:'-6%'}]} title={true}>
-                        Sign Up
+                    <ThemedText style={[styles.title, {marginBottom:'-16%', marginTop:'-8%'}]} title={true}>
+                        {/* Sign Up */}
                     </ThemedText>
                     <Spacer/>
                     {/* First Name */}
@@ -181,7 +186,7 @@ const Register = () => {
                         Touchable={Pressable}
                         options={days}
                         hideMenuHeader= {true}
-                        menuContentStyle={[styles.textInput, {marginTop: '70%'}]}
+                        menuContentStyle={[styles.textInput, {marginTop: '-60%'}]}
                         />
                     </View>
 
@@ -195,7 +200,7 @@ const Register = () => {
                         Touchable={Pressable}
                         options={months}
                         hideMenuHeader= {true}
-                        menuContentStyle={[styles.textInput, {marginTop: '52%'}]}
+                        menuContentStyle={[styles.textInput, {marginTop: '-33%'}]}
                         />
                     </View>
 
@@ -209,7 +214,7 @@ const Register = () => {
                         Touchable={Pressable}
                         options={years}
                         hideMenuHeader= {true}
-                        menuContentStyle={[styles.textInput, {marginTop: '53%'}]}
+                        menuContentStyle={[styles.textInput, {marginTop: '-45%'}]}
                         />
                     </View>
 
@@ -278,7 +283,7 @@ const Register = () => {
                     {/* Password requirements */}
                     {passwordRequirements.map((req, idx) =>
                         !req.test(password) ? (
-                        <Text key={idx} style={{ color: "#d4d4d4", fontSize: 12, marginBottom: 2 }}>
+                        <Text key={idx} style={{ color: "#9CA3AF", fontSize: 12, marginBottom: 2 }}>
                             • {req.label}
                         </Text>
                         ) : null
@@ -287,7 +292,7 @@ const Register = () => {
 
 
 
-                    <Button mode="contained" onPress={handleSubmit} style={{ marginTop: 20, borderRadius:6 }} buttonColor="#89939E" textColor="#eee">
+                    <Button mode="contained" onPress={handleSubmit} style={{ marginTop: 20, borderRadius:6 }} buttonColor="#4B5563" textColor="#eee">
                         Sign Up
                     </Button>
                     {error && <Text style={styles.error}>{error}</Text>}

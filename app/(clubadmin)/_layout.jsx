@@ -9,15 +9,15 @@ export default function ClubAdminLayout() {
   const {user} = useUser()
   //console.log(user)
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.dark
+  //const theme = Colors[colorScheme] ?? Colors.dark
 
   return (
     <>
       <StatusBar style="auto" />
       <Stack 
         screenOptions={{
-          headerStyle: {backgroundColor: theme.navBackground},
-          headerTintColor: theme.title,
+          headerStyle: {backgroundColor: Colors.navBackground},
+          headerTintColor: Colors.title,
           headerShadowVisible: false,
           headerTitleStyle: {fontSize:24, fontWeight: "bold"},
           headerBackButtonMenuEnabled: false,

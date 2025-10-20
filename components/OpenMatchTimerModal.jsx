@@ -11,6 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { CAProfileCard } from "./CAProfileCard";
+import { Colors } from "../constants/Colors";
 
 export default function OpenMatchTimerModal({
   visible,
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   timerBox: {
-    backgroundColor: "#061224",
+    backgroundColor: Colors.cardBackground,
     width: 80,
     height: 80,
     borderRadius: 12,
@@ -201,13 +202,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   startButton: {
-    backgroundColor: "#EE3C79",
+    backgroundColor: Colors.primary,
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
   },
   endButton: {
-    backgroundColor: "#061224", // Same as timer boxes
+    backgroundColor: Colors.cardBackground, // Same as timer boxes
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   resetButtonText: {
-    color: "#38C6F4", // Cyan
+    color: Colors.primaryAlt, // Cyan
     fontWeight: "600",
     fontSize: 16,
   },

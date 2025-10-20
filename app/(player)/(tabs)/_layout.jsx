@@ -7,20 +7,20 @@ import PlayerOnly from "../../../components/auth/PlayerOnly";
 
 export default function PlayerLayout() {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.light
+  //const theme = Colors[colorScheme] ?? Colors.light
   return (
     <>
       <Tabs tabBar={props => <TabBar {...props}/>}
         screenOptions={{ 
             headerShown: false, 
             tabBarStyle:{
-              backgroundColor: theme.navBackground,
+              backgroundColor: Colors.navBackground,
               padding: 10,
               height: 90,
               borderTopWidth: 0
             },
-            tabBarActiveTintColor: theme.iconColorFocused,
-            tabBarInactiveTintColor: theme.iconColor
+            tabBarActiveTintColor: Colors.iconColorFocused,
+            tabBarInactiveTintColor: Colors.iconColor
           }} 
       >
         <Tabs.Screen 

@@ -14,13 +14,13 @@ export function CADashboardCard({
   style,
 }) {
   const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.dark
+  //const theme = Colors[colorScheme] ?? Colors.dark
   return (
     <PlatformPressable
       onPress={onPress}
       style={[{ width, height, margin: 6 }, style]}
     >
-      <View style={[styles.card, { backgroundColor: theme.cardBackground }]}>
+      <View style={[styles.card, { backgroundColor: Colors.cardBackground }]}>
         {/* Icon */}
         <View style={styles.iconBox}>{icon}</View>
 

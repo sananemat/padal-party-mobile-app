@@ -15,6 +15,7 @@ import * as ImagePicker from "expo-image-picker";
 import ThemedView from "../../components/ThemedView";
 import CABreadcrumbs from "../../components/CABreadcrumbs";
 import Spacer from "../../components/Spacer";
+import { Colors } from "../../constants/Colors";
 
 const RECENT_ANNOUNCEMENTS = [
   {
@@ -260,13 +261,13 @@ const styles = StyleSheet.create({
   },
   tabButton: {
     flex: 1,
-    backgroundColor: "#0E1340",
+    backgroundColor: Colors.cardBackground,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",
   },
   tabButtonActive: {
-    backgroundColor: "#3C54A5",
+    backgroundColor: Colors.uiBackground,
   },
   tabButtonText: {
     color: "#fff",
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   card: {
-    backgroundColor: "#0E1340",
+    backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     padding: 18,
     marginBottom: 18,
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   input: {
-    backgroundColor: "#3C54A5",
+    backgroundColor: Colors.uiBackground,
     borderRadius: 8,
     paddingHorizontal: 14,
     paddingVertical: 12,
@@ -323,7 +324,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   dropdown: {
-    backgroundColor: "#3C54A5",
+    backgroundColor: Colors.uiBackground,
     borderRadius: 8,
     paddingHorizontal: 14,
     paddingVertical: 12,
@@ -337,7 +338,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   submitButton: {
-    backgroundColor: "#EE3C79",
+    backgroundColor: Colors.primary,
     borderRadius: 8,
     paddingVertical: 14,
     alignItems: "center",
@@ -364,7 +365,7 @@ const styles = StyleSheet.create({
   },
   notificationTypeButton: {
     borderWidth: 1,
-    borderColor: "#38C6F4",
+    borderColor: Colors.primaryAlt,
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 14,
@@ -372,10 +373,10 @@ const styles = StyleSheet.create({
   },
   notificationTypeButtonActive: {
     backgroundColor: "#232A4D",
-    borderColor: "#38C6F4",
+    borderColor: Colors.primaryAlt,
   },
   notificationTypeText: {
-    color: "#38C6F4",
+    color: Colors.primaryAlt,
     fontWeight: "600",
     fontSize: 14,
   },
@@ -390,7 +391,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   announcementCard: {
-    backgroundColor: "#0E1340",
+    backgroundColor: Colors.cardBackground,
     borderRadius: 12,
     padding: 14,
     marginBottom: 12,

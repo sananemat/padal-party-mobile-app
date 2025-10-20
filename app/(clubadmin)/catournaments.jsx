@@ -24,7 +24,7 @@ export default function CATournaments() {
         <Spacer height={16} />
 
         {/* 🔹 Create Tournament Button */}
-        <TouchableOpacity style={styles.createButton} onPress={() => router.push("/cacreatetourny")}>
+        <TouchableOpacity style={styles.createButton} onPress={() => router.push("/cacreatetourney")}>
           <Ionicons name="add" size={16} color="#fff" />
           <Text style={styles.createButtonText}>Create Tournament</Text>
         </TouchableOpacity>

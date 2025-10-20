@@ -6,6 +6,7 @@ import { CADashboardCard } from "../../components/CADashboardCard";
 import ThemedView from "../../components/ThemedView";
 import Spacer from "../../components/Spacer";
 import { router } from "expo-router";
+import { Colors } from "../../constants/Colors";
 
 
 export default function CADashboard() {
@@ -17,13 +18,13 @@ export default function CADashboard() {
 
       <ThemedView style={[styles.grid, ]}>
         <CADashboardCard  style={{flex:1}}
-          icon={<Ionicons name="business" size={32} color="#38C6F4" />}
+          icon={<Ionicons name="business" size={32} color={Colors.primaryAlt} />}
           title="Club Profile"
           subtitle="Management"
           onPress={() => router.push("/caprofile")}
         />
         <CADashboardCard style={{flex:1}}
-          icon={<Ionicons name="tennisball" size={32} color="#EE3C79" />}
+          icon={<Ionicons name="tennisball" size={32} color={Colors.primary} />}
           title="Court"
           subtitle="Management"
           onPress={() => router.push("/cacourts")}
@@ -31,13 +32,13 @@ export default function CADashboard() {
       </ThemedView>
       <ThemedView style={[styles.grid, ]}>
         <CADashboardCard style={{flex:1}}
-          icon={<Ionicons name="calendar-number" size={32} color="#EE3C79" />}
+          icon={<Ionicons name="calendar-number" size={32} color={Colors.primary} />}
           title="Booking"
           subtitle="Management"
           onPress={() => router.push("/cabookings")}
         />
         <CADashboardCard style={{flex:1}}
-          icon={<Ionicons name="stats-chart" size={32} color="#38C6F4" />}
+          icon={<Ionicons name="stats-chart" size={32} color={Colors.primaryAlt} />}
           title="Analytics"
           subtitle="Reports"
           onPress={() => router.push("/caanalytics")}
@@ -45,13 +46,13 @@ export default function CADashboard() {
         </ThemedView>
         <ThemedView style={[styles.grid, ]}>
         <CADashboardCard style={{flex:1}}
-          icon={<Ionicons name="trophy" size={32} color="#38C6F4" />}
+          icon={<Ionicons name="trophy" size={32} color={Colors.primaryAlt} />}
           title="Tournaments"
           subtitle="Management"
           onPress={() => router.push("/catournaments")}
         />
         <CADashboardCard style={{flex:1}}
-          icon={<Ionicons name="chatbubble-ellipses" size={32} color="#EE3C79" />}
+          icon={<Ionicons name="chatbubble-ellipses" size={32} color={Colors.primary} />}
           title="Communications"
           subtitle="Notifications"
           onPress={() => router.push("/cacomms")}

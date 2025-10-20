@@ -15,7 +15,7 @@ import { useUser } from '../../hooks/useUser';
 
 const Login = () => {
     const colorScheme = useColorScheme();
-    const theme = Colors[colorScheme] ?? Colors.light
+    //const theme = Colors[colorScheme] ?? Colors.light
 
 
     const [email, setEmail] = useState('')
@@ -71,7 +71,7 @@ const Login = () => {
                 onChangeText ={setEmail}
                 value={email}
             />
-            <ThemedView style={{width: '80%', marginBottom: 20, flexDirection: 'row', alignItems: 'center', backgroundColor: theme.uiBackground}} >
+            <ThemedView style={{width: '80%', marginBottom: 20, flexDirection: 'row', alignItems: 'center', backgroundColor: Colors.cardBackground, borderRadius: 6}} >
                 <ThemedTextInput
                     style={{flex:4}}
                     placeholder='Password'
@@ -81,7 +81,7 @@ const Login = () => {
                     secureTextEntry={pwvisibility}
                 />
                 <TouchableOpacity style={{position: 'absolute', right: 20, flex:1}} onPress={() => setPwvisibility(!pwvisibility)}>
-                    <Ionicons name={pwvisibility ? 'eye-off' : 'eye'} size={24} color={theme.iconColor} />
+                    <Ionicons name={pwvisibility ? 'eye-off' : 'eye'} size={24} color={Colors.iconColor} />
                 </TouchableOpacity>
             </ThemedView>
             

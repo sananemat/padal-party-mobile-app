@@ -6,14 +6,14 @@ import { UserProvider } from '../context/UserContext';
 
 const RootLayout = () => {
     const colorScheme = useColorScheme();
-    const theme = Colors[colorScheme] ?? Colors.light
+    //const theme = Colors[colorScheme] ?? Colors.light
     
   return (
     <UserProvider>
         <StatusBar value='auto'/>
         <Stack screenOptions={{
-            headerStyle: {backgroundColor: theme.navBackground},
-            headerTintColor: theme.title,
+            headerStyle: {backgroundColor: Colors.navBackground},
+            headerTintColor: Colors.title,
             headerShadowVisible: false
         }}>
           <Stack.Screen name="index" options={{title: 'Home'}}/>

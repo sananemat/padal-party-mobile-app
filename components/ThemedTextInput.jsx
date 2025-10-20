@@ -5,15 +5,15 @@ import ThemedView from './ThemedView';
 
 const ThemedTextInput = ({style, ...props}) => {
     const colorScheme = useColorScheme()
-    const theme = Colors[colorScheme] ?? Colors.dark
+    //const theme = Colors[colorScheme] ?? Colors.dark
 
 
   return (
     <TextInput
         style={[
             {
-                backgroundColor: theme.uiBackground,
-                color: theme.text,
+                backgroundColor: Colors.cardBackground,
+                color: Colors.text,
                 padding: 20,
                 borderRadius: 6,
             },
