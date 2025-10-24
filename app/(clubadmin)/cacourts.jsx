@@ -1,5 +1,5 @@
 // app/clubadmin/cacourts.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -18,6 +18,7 @@ import CABreadcrumbs from "../../components/CABreadcrumbs";
 import AddCourtModal from "../../components/AddCourtModal";
 import EditCourtModal from "../../components/EditCourtModal";
 import { Colors } from "../../constants/Colors";
+import { useUser } from "../../hooks/useUser";
 
 
 // 🔹 Sample base64 image (keep full string in real app)
@@ -67,37 +68,198 @@ const SAMPLE_COURTS = [
 
 export default function CACourts() {
 
+  const { user, accessToken } = useUser();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
-  const [courts, setCourts] = useState(SAMPLE_COURTS);
+  const [courts, setCourts] = useState([]);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [editCourt, setEditCourt] = useState(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  useEffect(() => {
+    if (!accessToken) return; // wait until token is ready
+
+    const fetchCourts = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.EXPO_PUBLIC_API_URL}/club/get-all-courts-by-token`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          console.error(response);
+          throw new Error("Failed to fetch courts");
+        }
+
+        const data = await response.json();
+        //console.log("Fetched courts:", data);
+        
+        // Assuming API returns array of courts
+        setCourts(data); // Adjust based on your API response structure
+      } catch (err) {
+        console.error("Error fetching courts:", err);
+        // Keep sample courts as fallback on error
+      }
+    };
+
+    fetchCourts();
+  }, [accessToken]);
 
   const filteredCourts = courts.filter(court => {
-    const matchesSearch = court.name.toLowerCase().includes(searchQuery.toLowerCase());
+    //console.log("Court => ", court)
+    const matchesSearch = court.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === "All" || court.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
-  const toggleCourtStatus = (id) => {
+  const toggleCourtStatus = (id, status) => {
     setCourts(prev =>
       prev.map(court =>
-        court.id === id
+        court._id === id
           ? { ...court, status: court.status === "Active" ? "Inactive" : "Active" }
           : court
       )
     );
+    if(status==="Active")
+      updateCourtStatus(id, "Inactive");
+    else
+      updateCourtStatus(id, "Active");
   };
-  const handleAddCourt = (newCourt) => {
-    setCourts(prev => [newCourt, ...prev]);
+  const handleAddCourt = async (newCourt) => {
+    
+    var createdcourt = await createCourt(newCourt);
+    console.log("createdCourt => ",createdcourt);
+    setCourts(prev => [createdcourt, ...prev]);
   };
   const handleUpdateCourt = (updatedCourt) => {
+    console.log("Updated Court Id => ", updatedCourt._id)
     setCourts(prev =>
       prev.map(court => 
-        court.id === updatedCourt.id ? updatedCourt : court
+        court._id === updatedCourt._id ? updatedCourt : court
       )
     );
+    updateCourt(updatedCourt);
+  };
+
+
+  const updateCourt = async (court) => {
+    if (!accessToken) {
+      console.error("No access token available");
+      return;
+    }
+  
+    try {
+      const updatePayload = {
+        _id: court._id,
+        title: court.title,
+        picture: court.picture,
+        court_color_hex: court.court_color_hex,
+        day_time: court.day_time,
+        day_price: court.day_price,
+        night_time: court.night_time,
+        night_price: court.night_price,
+      };
+
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}/club/update-court`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(updatePayload),
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Failed to update ${court._id}`);
+      }
+  
+      const data = await response.json();
+      console.log(`Court: ${court._id} updated successfully`);
+      return data;
+    } catch (err) {
+      console.error(`Error updating ${court._id}:`, err);
+      Alert.alert("Error", `Failed to update ${court._id}`);
+    }
+  };
+  const updateCourtStatus = async (id, status) => {
+    if (!accessToken) {
+      console.error("No access token available");
+      return;
+    }
+  
+    try {
+      const updatePayload = {
+        _id: id,
+        status: status
+      };
+
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}/club/update-court`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(updatePayload),
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Failed to update ${id}`);
+      }
+  
+      const data = await response.json();
+      console.log(`Court: ${id} updated successfully`);
+      return data;
+    } catch (err) {
+      console.error(`Error updating ${id}:`, err);
+      Alert.alert("Error", `Failed to update ${id}`);
+    }
+  };
+
+
+
+  const createCourt = async (court) => {
+    if (!accessToken) {
+      console.error("No access token available");
+      return;
+    }
+  
+    try {
+      const updatePayload = court;
+
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}/club/create-court`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(updatePayload),
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Failed to Add ${court.title}`);
+      }
+  
+      const data = await response.json();
+      console.log(`Court: ${court.title} created successfully`, data);
+      return data;
+    } catch (err) {
+      console.error(`Error creating ${court.title}:`, err);
+      Alert.alert("Error", `Failed to create ${court.title}`);
+    }
   };
 
   return (
@@ -157,14 +319,14 @@ export default function CACourts() {
           <Text style={styles.noResults}>No courts found</Text>
         ) : (
           filteredCourts.map((court) => (
-            <CAProfileCard key={court.id} style={styles.courtCard}>
+            <CAProfileCard key={court._id} style={styles.courtCard}>
               <Image
-                source={{ uri: court.image }}
+                source={{ uri: court.picture }}
                 style={styles.courtImage}
                 resizeMode="cover"
               />
               <View style={styles.courtInfo}>
-                <Text style={styles.courtName}>{court.name}</Text>
+                <Text style={styles.courtName}>{court.title}</Text>
                 {/* <View style={styles.pricingRow}>
                   <Text style={styles.pricingText}>
                     Day: {court.daytime instanceof Date 
@@ -183,7 +345,7 @@ export default function CACourts() {
                   <View
                     style={[
                       styles.statusDot,
-                      { backgroundColor: court.status === "Active" ? "#4CAF50" : "#F44336" },
+                      { backgroundColor: court.status.toLowerCase() === "active" ? "#4CAF50" : "#F44336" },
                     ]}
                   />
                   <Text style={styles.statusText}>{court.status}</Text>
@@ -208,7 +370,7 @@ export default function CACourts() {
                     styles.toggle,
                     { backgroundColor: court.status === "Active" ? "#3B82F6" : "#E5E7EB" },
                   ]}
-                  onPress={() => toggleCourtStatus(court.id)}
+                  onPress={() => toggleCourtStatus(court._id, court.status)}
                 >
                   <View
                     style={[
@@ -224,7 +386,7 @@ export default function CACourts() {
               </View>
           
               {/* 🔹 Color Stripe at Bottom */}
-              <View style={[styles.colorStripe, { backgroundColor: court.color }]} />
+              <View style={[styles.colorStripe, { backgroundColor: court.court_color_hex }]} />
             </CAProfileCard>
           ))
         )}

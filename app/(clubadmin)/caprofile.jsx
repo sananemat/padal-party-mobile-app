@@ -51,8 +51,8 @@ export default function CAProfile() {
 
     const fetchClubs = async () => {
       try {
-        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/club/get-all-clubs`, {
-          method: "POST",
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/club/get-club-by-token`, {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${accessToken}`, // ✅ add token here
@@ -67,15 +67,19 @@ export default function CAProfile() {
 
         const data = await response.json();
         //console.log(data[0].image_url);
-        setClubId(data[0]._id)
-        setClubPhoto(data[0].image_url)
-        setClubName(data[0].title)
-        const normalizedAmenities = data[0].amenities.map(amenity => ({
+        setClubId(data._id)
+        setClubPhoto(data.image_url)
+        setClubName(data.title)
+        setTempClubName(data.title)
+        const normalizedAmenities = data.amenities.map(amenity => ({
           label: amenity,
           icon: AMENITIES_ICON_MAP[amenity] || "star" // provide default icon if not in API
         }));
         setAmenities(normalizedAmenities);
-        setLocation({coords: data[0].location})
+        setLocation(data.location)
+        setContactInfo({phone: data.phoneNumber, email: data.email, website: data.website})
+        // console.log(location);
+        // console.log(contactInfo);
         //setClubs(data.data || []); // adjust based on your backend response shape
       } catch (err) {
         console.error("Error fetching clubs:", err);
@@ -118,7 +122,7 @@ export default function CAProfile() {
       }
   
       const data = await response.json();
-      console.log(`${fieldName} updated successfully`, data);
+      console.log(`${fieldName} updated successfully`);
       return data;
     } catch (err) {
       console.error(`Error updating ${fieldName}:`, err);
@@ -130,7 +134,7 @@ export default function CAProfile() {
   const [amenities, setAmenities] = useState([]);
   const [amenitiesModalVisible, setAmenitiesModalVisible] = useState(false);
   const [contactInfo, setContactInfo] = useState({
-    phone: "+92 300 1234567",
+    phone: "+923001234567",
     email: "info@elitepadel.com",
     website: "www.elitepadel.com",
   });
@@ -147,7 +151,7 @@ export default function CAProfile() {
   const [modalVisible, setModalVisible] = useState(false);
   const [locationModalVisible, setLocationModalVisible] = useState(false);
   const [location, setLocation] = useState({
-    coords: { latitude: 24.8607, longitude: 67.0011 }, // default
+    coordinates: { latitude: 24.8607, longitude: 67.0011 }, // default
     address: 'Karachi, Pakistan'
   });
 
@@ -174,14 +178,20 @@ export default function CAProfile() {
 
   // For location
   const handleLocationUpdate = (address, region) => {
-    setLocation({ coords: region, address });
-    updateClubField("location", region); // Update location with coordinates
+    const newLocation = { coordinates: region, address };
+    setLocation(newLocation);
+    console.log("handleLocationUpdate => Address: ", address)
+    console.log("handleLocationUpdate => Region: ", region)
+    console.log("handleLocationUpdate => Location: ", newLocation)
+    updateClubField("location", newLocation);
   };
 
   // For contact info
   const handleContactInfoUpdate = (updated) => {
     setContactInfo(updated);
-    updateClubField("contactInfo", updated); // Adjust field name as needed
+    updateClubField("phoneNumber", updated.phone);
+    updateClubField("email", updated.email);
+    updateClubField("website", updated.website);
 };
 
   return (
@@ -355,9 +365,9 @@ export default function CAProfile() {
       <LocationModal
         visible={locationModalVisible}
         onClose={() => setLocationModalVisible(false)}
-        initialRegion={location.coords}
+        initialRegion={location.coordinates}
         initialAddress={location.address}
-        onUpdate={(address, region) => setLocation({ coords:region, address })}
+        onUpdate={handleLocationUpdate}
       />
       <ContactInfoModal
         visible={contactModalVisible}
@@ -365,7 +375,7 @@ export default function CAProfile() {
         initialPhone={contactInfo.phone}
         initialEmail={contactInfo.email}
         initialWebsite={contactInfo.website}
-        onUpdate={(updated) => setContactInfo(updated)}
+        onUpdate={handleContactInfoUpdate}
       />
 
     </ThemedView>

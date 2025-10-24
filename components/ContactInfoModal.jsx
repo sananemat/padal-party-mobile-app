@@ -1,5 +1,5 @@
 // app/components/ContactInfoModal.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -36,6 +36,11 @@ export default function ContactInfoModal({
     onUpdate({ phone, email, website });
     onClose();
   };
+  useEffect(() => {
+    setPhone(initialPhone);
+    setEmail(initialEmail);
+    setWebsite(initialWebsite);
+  }, [initialPhone, initialEmail, initialWebsite]);
 
   return (
     <Modal

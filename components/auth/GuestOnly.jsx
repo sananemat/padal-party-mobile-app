@@ -15,7 +15,7 @@ const GuestOnly = ({ children }) => {
                   router.replace("/cadashboard");
                   break;
                 case "player":
-                  router.replace("/profile"); 
+                  router.replace("/home"); 
                   break;
                 default:
                   router.replace("/login"); 

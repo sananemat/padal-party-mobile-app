@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, useCallback } from "react";
+import { createContext, useEffect, useState, useCallback, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {jwtDecode} from "jwt-decode";
 
@@ -12,7 +12,7 @@ export function UserProvider({ children }) {
   const [expiresAt, setExpiresAt] = useState(null); // timestamp in ms
 
   const saveTokens = async (token, refresh, expiresIn) => {
-    const expiryTime = Date.now() + expiresIn * 1000;
+    const expiryTime = Date.now() + expiresIn;
     await AsyncStorage.multiSet([
       ["accessToken", token],
       ["refreshToken", refresh],
@@ -24,6 +24,23 @@ export function UserProvider({ children }) {
 
     const decoded = jwtDecode(token);
     setUser(decoded); // assumes payload contains user info (id, email, etc.)
+  };
+  const validateToken = async (token) => {
+    try {
+      const response = await fetch(API_URL + "/auth/check-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+  
+      const data = await response.json();
+      return data.success === true;
+    } catch (error) {
+      console.error("Token validation error:", error);
+      return false;
+    }
   };
 
   async function login(email, password) {
@@ -69,11 +86,18 @@ export function UserProvider({ children }) {
     setExpiresAt(null);
   }
 
+  const refreshTokenRef = useRef(refreshToken);
+
+  useEffect(() => {
+    refreshTokenRef.current = refreshToken;
+  }, [refreshToken]);
+
   // 🔄 Refresh token
   const refresh = useCallback(async () => {
     if (!refreshToken) return logout();
 
     try {
+      console.log("Inside Refresh");
       const response = await fetch(API_URL+"/auth/refresh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -83,15 +107,17 @@ export function UserProvider({ children }) {
       if (!response.ok) throw new Error("Refresh failed");
 
       const data = await response.json();
-      await saveTokens(data.accessToken, data.refreshToken, data.expiresIn);
+      console.log("Refresh Token => ", data);
+      await saveTokens(data.data.accessToken, data.data.refreshToken, data.data.expiresIn);
     } catch (err) {
       await logout();
     }
-  }, [refreshToken]);
+  },);
 
   // Check stored tokens on app start
   async function getInitialUserValue() {
     try {
+      // await logout()
       const [[, storedAccess], [, storedRefresh], [, storedExpiry]] =
         await AsyncStorage.multiGet([
           "accessToken",
@@ -104,12 +130,29 @@ export function UserProvider({ children }) {
         return;
       }
 
-      const expiryTime = parseInt(storedExpiry, 10);
+      
+      const isValid = await validateToken(storedAccess);
+      if (!isValid) {
+        console.log("Invalid/Expired Token! Logging out!")
+        await logout();
+        return;
+      }
 
-      if (Date.now() > expiryTime - 60000) {
+      const expiryTime = parseInt(storedExpiry, 10);
+      // console.log("Expiry Time => ", user.exp)
+      // console.log("Current Time => ", Date.now()/1000)
+      console.log("Token Expiring in ", (expiryTime - Date.now() - 600000)/60000," minutes")
+      console.log(storedAccess);
+      console.log(storedExpiry);
+
+      if (Date.now() > expiryTime - 600000) {
+        console.log("Calling Refresh Token")
         // expired or within 1 min of expiry → refresh
-        await saveTokens(storedAccess, storedRefresh, 0); // temp set for state
-        await refresh();
+        // await saveTokens(storedAccess, storedRefresh, 0); // temp set for state
+        setAccessToken(storedAccess);
+        setRefreshToken(storedRefresh);
+        setExpiresAt(expiryTime);
+        await refresh(); 
       } else {
         setAccessToken(storedAccess);
         setRefreshToken(storedRefresh);
@@ -133,11 +176,14 @@ export function UserProvider({ children }) {
   // Every 30s check if we need to refresh
   useEffect(() => {
     const interval = setInterval(() => {
-      if (expiresAt && Date.now() > expiresAt - 60000) {
+      console.log("Check for Token Expiry...")
+      console.log("Time to renewal: ",(expiresAt - Date.now() - 600000)/60000, " minutes");
+      if (expiresAt && Date.now() > expiresAt - 600000) {
         refresh();
       }
-    }, 30000);
+    }, 300000);
 
+    
     return () => clearInterval(interval);
   }, [expiresAt, refresh]);
 

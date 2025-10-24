@@ -7,10 +7,13 @@ import ThemedView from "../../components/ThemedView";
 import Spacer from "../../components/Spacer";
 import { router } from "expo-router";
 import { Colors } from "../../constants/Colors";
+import { useUser } from "../../hooks/useUser";
+import ThemedButton from "../../components/ThemedButton";
 
 
 export default function CADashboard() {
 
+  const { user, logout } = useUser()
   return (
     <ThemedView style={styles.container}>
       {/* Title */}
@@ -58,6 +61,10 @@ export default function CADashboard() {
           onPress={() => router.push("/cacomms")}
         />
         </ThemedView>
+        <Spacer height={50}/>
+        <ThemedButton style={{width: "80%", alignItems: "center", alignSelf: "center"}} onPress={logout}>
+        <Text style={{ color: '#f2f2f2' }}>Logout</Text>
+      </ThemedButton>
     </ThemedView>
   );
 }

@@ -12,7 +12,7 @@ export default function ClubAdminLayout() {
   //const theme = Colors[colorScheme] ?? Colors.dark
 
   return (
-    <>
+    <ClubAdminOnly>
       <StatusBar style="auto" />
       <Stack 
         screenOptions={{
@@ -38,6 +38,6 @@ export default function ClubAdminLayout() {
         <Stack.Screen name="cacomms" options={{title: 'Communication'}}/>
         {/* <Stack.Screen name="caprofile" options={{title: 'Testing',headerShown: false}}/> */}
       </Stack>
-    </>
+    </ClubAdminOnly>
   )
 }

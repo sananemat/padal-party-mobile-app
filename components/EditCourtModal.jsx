@@ -48,19 +48,45 @@ export default function EditCourtModal({
   // 🔹 Pre-populate form when courtData changes
   useEffect(() => {
     if (courtData && visible) {
-        console.log('Court data daytime:', courtData.daytime, typeof courtData.daytime);
-        console.log('Is Date?', courtData.daytime instanceof Date);
-        setName(courtData.name || "");
-        setImageUri(courtData.image || null);
-        setColor(courtData.color || "#38C6F4");
-        setDayRate(courtData.dayrate?.toString() || "");
-        setNightRate(courtData.nightrate?.toString() || "");
+        // console.log('Court data daytime:', courtData.daytime, typeof courtData.daytime);
+        // console.log('Is Date?', courtData.daytime instanceof Date);
+        setName(courtData.title || "");
+        setImageUri(courtData.picture || null);
+        setColor(courtData.court_color_hex || "#38C6F4");
+        setDayRate(courtData.day_price?.toString() || "");
+        setNightRate(courtData.night_price?.toString() || "");
         
-        // ✅ Directly use Date objects (no parsing needed!)
-        setDayTime(courtData.daytime || new Date());
-        setNightTime(courtData.nighttime || new Date());
-        setTempDayTime(courtData.daytime || new Date());
-        setTempNightTime(courtData.nighttime || new Date());
+        const parseTimeString = (timeStr) => {
+          console.log("TimeStr => ", timeStr)
+          if (!timeStr) return new Date();
+          if (timeStr instanceof Date) {
+            return timeStr;
+          }
+          
+          // Handle "7:00AM" format
+          const match = timeStr.match(/(\d+):(\d+)\s*([AP]M)/i);
+          if (match) {
+            console.log("Inside Match");
+            let hours = parseInt(match[1]);
+            const minutes = parseInt(match[2]);
+            const period = match[3].toUpperCase();
+            
+            if (period === 'PM' && hours < 12) hours += 12;
+            if (period === 'AM' && hours === 12) hours = 0;
+            
+            const date = new Date();
+            date.setHours(hours, minutes, 0, 0);
+            return date;
+          }
+          
+          console.log("Setting Fallback DateTime");
+          return new Date(); // Fallback
+        };
+        
+        setDayTime(parseTimeString(courtData.day_time));
+        setNightTime(parseTimeString(courtData.night_time));
+        setTempDayTime(parseTimeString(courtData.day_time));
+        setTempNightTime(parseTimeString(courtData.night_time));
     }
   }, [courtData, visible]);
 
@@ -72,7 +98,7 @@ export default function EditCourtModal({
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaType,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 0.7,
@@ -82,9 +108,9 @@ export default function EditCourtModal({
       const compressed = await manipulateAsync(
         result.assets[0].uri,
         [{ resize: { width: 400, height: 400 } }],
-        { compress: 0.8, format: SaveFormat.JPEG }
+        { compress: 0.8, format: SaveFormat.JPEG, base64: true, }
       );
-      setImageUri(compressed.uri);
+      setImageUri(`data:image/jpeg;base64,${compressed.base64}`);
     }
   };
 
@@ -98,15 +124,23 @@ export default function EditCourtModal({
       return;
     }
 
+    const formatTimeToString = (dateObj) => {
+      return dateObj.toLocaleTimeString([], { 
+        hour: 'numeric', 
+        minute: '2-digit', 
+        hour12: true 
+      });
+    };
+
     const updatedCourt = {
       ...courtData,
-      name: name.trim(),
-      image: imageUri || courtData.image || SAMPLE_COURT_IMAGE,
-      color: color,
-      daytime: dayTime,
-      dayrate: parseFloat(dayRate),
-      nighttime: nightTime,
-      nightrate: parseFloat(nightRate),
+      title: name.trim(),
+      picture: imageUri || courtData.picture || SAMPLE_COURT_IMAGE,
+      court_color_hex: color,
+      day_time: formatTimeToString(dayTime),
+      day_price: parseFloat(dayRate),
+      night_time: formatTimeToString(nightTime),
+      night_price: parseFloat(nightRate),
     };
 
     onUpdateCourt(updatedCourt);

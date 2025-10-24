@@ -70,6 +70,7 @@ const Login = () => {
                 keyboardAppearance="dark"
                 onChangeText ={setEmail}
                 value={email}
+                autoCapitalize="none"
             />
             <ThemedView style={{width: '80%', marginBottom: 20, flexDirection: 'row', alignItems: 'center', backgroundColor: Colors.cardBackground, borderRadius: 6}} >
                 <ThemedTextInput
